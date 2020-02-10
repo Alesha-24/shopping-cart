@@ -49,16 +49,16 @@ while True:
     else:
         prod_id = int(prod_id)
         matching_products = [p for p in products if p["id"] == prod_id]
+    try:
+        matching_product = matching_products[0]
+        print("+ ", matching_product["name"], to_usd(matching_product["price"]))
+        product_selection.append(matching_product)
+    except IndexError:
+        print("The item you entered doesn't exist, please try again")
 
-        try: 
-            matching_product = matching_products[0]
-            #matching product is the particular product that we're trying to find in the list of matching products (which is taken from the main list of products based on the identifiers the user enters)
-            #matching products will only either contian 1 item - if the ID exists, or none if it doesn't
-            prod_list.append(prod_id)
-            print("+ ", product["name"], to_usd(product["price"])
-            print(product_selection)
-        except IndexError:
-            print("The item you entered doesn't exist, please enter a valid item number!")
+print(product_selection)
+
+
 print("------------------------------------------")
 print("The Natural Grocer")
 print("------------------------------------------")
@@ -68,15 +68,19 @@ today = datetime.now()
 print("Checkout Time:", today.year, "/", today.month, "/", today.day, "  ", today.hour, ":", today.minute)
 print("------------------------------------------")
 print("Shopping Cart Items:")
-print("------------------------------------------")
+
+
 for product in product_selection:
-    print("+ ", product["name"], to_usd(product["price"])
+    print("+ ", product["name"], to_usd(product["price"]))
     price = product["price"]
     subtotal = price + subtotal
+print("------------------------------------------")
+
 print(to_usd(subtotal))
-tax = 0.085 * subtotal
-print("Plus D.C. Sales Tax (8.5%): ", to_usd(tax))
-total = subtotal + tax 
+tax = 0.0875
+amount_tax = tax * subtotal
+print("Plus D.C. Sales Tax (8.75%): ", to_usd(amount_tax))
+total = subtotal + amount_tax 
 print(to_usd(total)) 
 print("------------------------------------------")
 print("Thank you for shopping, please come again!")
