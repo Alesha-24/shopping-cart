@@ -39,7 +39,7 @@ print("-----------------------------------------------")
 
 subtotal = 0
 prod_list = []
-selected_products = []
+product_selection = []
 
 while True: 
     prod_id = input("Please input a product identifier, or 'DONE' if there are no more items: ")
@@ -56,8 +56,7 @@ while True:
             #matching products will only either contian 1 item - if the ID exists, or none if it doesn't
             prod_list.append(prod_id)
             print("+ ", product["name"], to_usd(product["price"])
-            selected_products.append(matching_product)
-            print(selected_products)s
+            print(product_selection)
         except IndexError:
             print("The item you entered doesn't exist, please enter a valid item number!")
 print("------------------------------------------")
@@ -70,8 +69,7 @@ print("Checkout Time:", today.year, "/", today.month, "/", today.day, "  ", toda
 print("------------------------------------------")
 print("Shopping Cart Items:")
 print("------------------------------------------")
-
-for product in selected_products:
+for product in product_selection:
     print("+ ", product["name"], to_usd(product["price"])
     price = product["price"]
     subtotal = price + subtotal
