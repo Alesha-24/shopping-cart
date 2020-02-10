@@ -1,4 +1,10 @@
 import pprint
+from dotenv import load_dotenv
+import os
+
+load_dotenv() 
+tax_rate = os.getenv("tax_rate")
+print(tax_rate)
 
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
@@ -77,10 +83,10 @@ for product in product_selection:
 print("------------------------------------------")
 
 print(to_usd(subtotal))
-tax = 0.0875
-amount_tax = tax * subtotal
-print("Plus D.C. Sales Tax (8.75%): ", to_usd(amount_tax))
-total = subtotal + amount_tax 
+tax_rate = float(tax_rate)
+tax = tax_rate * subtotal
+print("Plus D.C. Sales Tax (", tax_rate,"):", to_usd(tax))
+total = subtotal + tax 
 print(to_usd(total)) 
 print("------------------------------------------")
 print("Thank you for shopping, please come again!")
