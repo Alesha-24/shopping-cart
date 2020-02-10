@@ -38,8 +38,9 @@ print("Hello and welcome to The Natural Grocer's Input System")
 print("-----------------------------------------------")
 
 subtotal = 0
-
 prod_list = []
+selected_products = []
+
 while True: 
     prod_id = input("Please input a product identifier, or 'DONE' if there are no more items: ")
     if prod_id == "DONE":
@@ -48,12 +49,17 @@ while True:
     else:
         prod_id = int(prod_id)
         matching_products = [p for p in products if p["id"] == prod_id]
-        prod_list.append(prod_id)
-        for product in matching_products:
-            print("+ ", product["name"], to_usd(product["price"]))
-        price = product["price"]
-        subtotal = price + subtotal
 
+        try: 
+            matching_product = matching_products[0]
+            #matching product is the particular product that we're trying to find in the list of matching products (which is taken from the main list of products based on the identifiers the user enters)
+            #matching products will only either contian 1 item - if the ID exists, or none if it doesn't
+            prod_list.append(prod_id)
+            print("+ ", product["name"], to_usd(product["price"])
+            selected_products.append(matching_product)
+            print(selected_products)s
+        except IndexError:
+            print("The item you entered doesn't exist, please enter a valid item number!")
 print("------------------------------------------")
 print("The Natural Grocer")
 print("------------------------------------------")
@@ -64,6 +70,11 @@ print("Checkout Time:", today.year, "/", today.month, "/", today.day, "  ", toda
 print("------------------------------------------")
 print("Shopping Cart Items:")
 print("------------------------------------------")
+
+for product in selected_products:
+    print("+ ", product["name"], to_usd(product["price"])
+    price = product["price"]
+    subtotal = price + subtotal
 print(to_usd(subtotal))
 tax = 0.085 * subtotal
 print("Plus D.C. Sales Tax (8.5%): ", to_usd(tax))
