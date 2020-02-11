@@ -120,6 +120,7 @@ with open(file_name, 'w') as file:
     file.write("Shopping Cart Items:")
     file.write("\n")
     file.write("------------------------------------------")
+    file.write("\n")
     for product in product_selection:
         file.write("+ ")
         file.write(product["name"])
