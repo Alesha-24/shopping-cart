@@ -25,10 +25,9 @@ products = [
     {"id":17, "name": "Rendered Duck Fat", "department": "meat seafood", "aisle": "poultry counter", "price": 9.99},
     {"id":18, "name": "Pizza for One Suprema Frozen Pizza", "department": "frozen", "aisle": "frozen pizza", "price": 12.50},
     {"id":19, "name": "Gluten Free Quinoa Three Cheese & Mushroom Blend", "department": "dry goods pasta", "aisle": "grains rice dried goods", "price": 3.99},
-    {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
+    {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 0.79,
+    {"id":21, "name": "Bananas", "department": "fruit", "aisle": "healthy", "price_per": 0.79}
     ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
-#"id":21, "name": "Organic Bananas", "department": "fruit", "aisle": "healthy", "price_per": 0.79}
-#error message for products not in the list 
 #print(products)
 import operator
 from datetime import date
@@ -67,7 +66,6 @@ while True:
             #print("+ ", matching_product["name"], to_usd(matching_product["price_per_pound"]))
             #product_selection.append(matching_product)
         #else:
-
 
 today = datetime.now()
 
