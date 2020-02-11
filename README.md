@@ -1,9 +1,9 @@
 # Alesha Gulamhusein - OPIM 243: Shopping Cart Project 
 
 ## Installation
-Use GitHub.com to first fork and then download or 'clone ;the project repository onto your computer.  It is helpful to choose an easily accessible download location like the Desktop.  
+Use GitHub.com to first fork and then download or 'clone' the project repository onto your computer.  It is helpful to choose an easily accessible download location like the Desktop.  
 
-After cloning the repo you can then use GitHub Desktop Software to access to the project repository or naivagte their using the command-line below:
+After cloning the repo you can then use GitHub Desktop Software to access  the project repository or naivagte their using the command-line below:
 
 ```sh
  cd ~/Desktop
@@ -11,8 +11,24 @@ After cloning the repo you can then use GitHub Desktop Software to access to the
 
 ## Environment Set Up
 
+Create and activate a new Anaconda virtual environment:
+
+```sh
+conda create -n shopping-env python=3.7 # (first time only)
+conda activate shopping-env
+```
+
+From within this virtual environment, you can run the Python script from the command-line:
+
+```sh
+python shopping_cart.py
+```
+
+## Using the Code
+You can use this code by entering a product identification number in the specficed inventory list when prompted by the program. The program will then automatically calcualte the total of the pruchase taking into account tax and then print a receipt.
+
 ## Configuring Sales Tax Rates
-This code can be shared with grocery stores in other states as well. You can use the ".env" to configure the sales tax rate based on your location. This will then automatically update in the rest of the code.  
+You can use the ".env" to configure the sales tax rate based on your location. This will then automatically update in the rest of the code.  This allows the program to be shared with grocery stores in other states as well. 
 
 ## Writing Receipts to File 
 In addition to being displayd at the end of the checkout proccess, the program also writes out the receipt sinformation into a new ".txt" file which can be found in the "receipts" directory inside the project repository. Each text file is  named according to the date and time the checkout process started. 
