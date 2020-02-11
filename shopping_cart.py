@@ -4,7 +4,6 @@ import os
 
 load_dotenv() 
 tax_rate = os.getenv("tax_rate")
-print(tax_rate)
 
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
@@ -27,8 +26,8 @@ products = [
     {"id":18, "name": "Pizza for One Suprema Frozen Pizza", "department": "frozen", "aisle": "frozen pizza", "price": 12.50},
     {"id":19, "name": "Gluten Free Quinoa Three Cheese & Mushroom Blend", "department": "dry goods pasta", "aisle": "grains rice dried goods", "price": 3.99},
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
-] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
-
+    ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
+#"id":21, "name": "Organic Bananas", "department": "fruit", "aisle": "healthy", "price_per": 0.79}
 #error message for products not in the list 
 #print(products)
 import operator
@@ -51,10 +50,11 @@ while True:
     prod_id = input("Please input a product identifier, or 'DONE' if there are no more items: ")
     if prod_id == "DONE":
         print("SHOPPING CART ITEM IDENTIFIERS INCLUDE:", prod_list)
-        break 
+        break      
     else:
         prod_id = int(prod_id)
         matching_products = [p for p in products if p["id"] == prod_id]
+        prod_list.append(prod_id)
     try:
         matching_product = matching_products[0]
         print("+ ", matching_product["name"], to_usd(matching_product["price"]))
@@ -62,15 +62,22 @@ while True:
     except IndexError:
         print("The item you entered doesn't exist, please try again")
 
-print(product_selection)
+#if prod_id == "21":
+            #pounds_of_banana = float(input(Please enter the number of pounds of bananas))
+            #print("+ ", matching_product["name"], to_usd(matching_product["price_per_pound"]))
+            #product_selection.append(matching_product)
+        #else:
 
+
+today = datetime.now()
 
 print("------------------------------------------")
 print("The Natural Grocer")
 print("------------------------------------------")
 print("Web: thenaturalgrocer.com")
 print("Phone: +1 240 360 4848")
-today = datetime.now()
+
+
 print("Checkout Time:", today.year, "/", today.month, "/", today.day, "  ", today.hour, ":", today.minute)
 print("------------------------------------------")
 print("Shopping Cart Items:")
@@ -82,11 +89,67 @@ for product in product_selection:
     subtotal = price + subtotal
 print("------------------------------------------")
 
-print(to_usd(subtotal))
+print("Subtotal: ", to_usd(subtotal))
 tax_rate = float(tax_rate)
 tax = tax_rate * subtotal
 print("Plus D.C. Sales Tax (", tax_rate,"):", to_usd(tax))
 total = subtotal + tax 
-print(to_usd(total)) 
+print("Total: ", to_usd(total)) 
 print("------------------------------------------")
 print("Thank you for shopping, please come again!")
+
+
+file_name = "receipts/" + str(today.year) + "-" + str(today.month) + "-" + str(today.day) + "-" + str(today.hour) + "-" + str(today.minute) + "-" + str(today.second) + "-" + str(today.microsecond) + ".txt"
+with open(file_name, 'w') as file:
+    file.write("------------------------------------------")
+    file.write("\n")
+    file.write("The Natural Grocer")
+    file.write("\n")
+    file.write("------------------------------------------")
+    file.write("\n")
+    file.write("Web: thenaturalgrocer.com")
+    file.write("\n")
+    file.write("Phone: +1 240 360 4848")
+    file.write("\n")
+    file.write("------------------------------------------")
+    file.write("\n")
+    file.write("Checkout Time: ")
+    file.write(str(today.year))
+    file.write("/")
+    file.write(str(today.month))
+    file.write("/")
+    file.write(str(today.day))
+    file.write("  ")
+    file.write(str(today.hour))
+    file.write(":")
+    file.write(str(today.minute))
+    file.write(":")
+    file.write(str(today.second))
+    file.write("\n")
+    file.write("Shopping Cart Items:")
+    file.write("\n")
+    file.write("------------------------------------------")
+    for product in product_selection:
+        file.write("+ ")
+        file.write(product["name"])
+        file.write("  ")
+        file.write(to_usd(product["price"]))
+        file.write("\n")
+    file.write("------------------------------------------")
+    file.write("\n")
+    file.write("Subtotal: ")
+    file.write(to_usd(subtotal))
+    file.write("\n")
+    file.write("Plus D.C. Sales Tax (")
+    file.write(str((tax_rate)))
+    file.write("): ")
+    file.write(to_usd(tax))
+    file.write("\n")
+    file.write("Total: ")
+    file.write(to_usd(total)) 
+    file.write("\n")
+    file.write("------------------------------------------")
+    file.write("\n")
+    file.write("Thank you for shopping, please come again!")
+    file.write("\n")
+    file.write("------------------------------------------")
