@@ -1,0 +1,27 @@
+------------------------------------------
+The Natural Grocer
+------------------------------------------
+Web: thenaturalgrocer.com
+Phone: +1 240 360 4848
+------------------------------------------
+Checkout Time: 2020/2/10  23:50:5
+Shopping Cart Items:
+------------------------------------------+ Chocolate Sandwich Cookies  $3.50
++ All-Seasons Salt  $4.99
++ Robust Golden Unsweetened Oolong Tea  $2.49
++ Smart Ones Classic Favorites Mini Rigatoni With Vodka Cream Sauce  $6.99
++ Green Chile Anytime Sauce  $7.99
++ Dry Nose Oil  $21.99
++ Pure Coconut Water With Orange  $3.50
++ Pure Coconut Water With Orange  $3.50
++ Cut Russet Potatoes Steam N' Mash  $4.25
++ Cut Russet Potatoes Steam N' Mash  $4.25
++ Light Strawberry Blueberry Yogurt  $6.50
++ Sparkling Orange Juice & Prickly Pear Beverage  $2.99
+------------------------------------------
+Subtotal: $72.94
+Plus D.C. Sales Tax (0.0875): $6.38
+Total: $79.32
+------------------------------------------
+Thank you for shopping, please come again!
+------------------------------------------
