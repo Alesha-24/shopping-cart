@@ -2,8 +2,15 @@ import pprint
 from dotenv import load_dotenv
 import os
 
+import operator
+from datetime import date
+from datetime import time 
+from datetime import datetime
+
+
 load_dotenv() 
 tax_rate = os.getenv("tax_rate")
+
 
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
@@ -27,22 +34,41 @@ products = [
     {"id":19, "name": "Gluten Free Quinoa Three Cheese & Mushroom Blend", "department": "dry goods pasta", "aisle": "grains rice dried goods", "price": 3.99},
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
     ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
-#print(products)
-import operator
-from datetime import date
-from datetime import time 
-from datetime import datetime
+
+
+today = datetime.now()
+checkout = datetime.now().strftime("%m/%d/%Y, %r")
 
 def to_usd(my_price):
+    """
+    Converts a numeric value to usd-formatted string, for printing and display purposes.
+    Source: https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/datatypes/numbers.md#formatting-as-currency
+    Param: my_price (int or float) like 4000.444444
+    Example: to_usd(4000.444444)
+    Returns: $4,000.44
+    """
     return f"${my_price:,.2f}" 
 
-print("-----------------------------------------------")
-print("Hello and welcome to The Natural Grocer's Input System")
-print("-----------------------------------------------")
+def format(my_message):
+    """
+    Allows for clear separation of lines of string, for display purposes.
+    Param: my_message (string)
+    Example: format("Hello World") 
+    Return:
+    "-----------------------------------------------"
+    Hello World
+    "-----------------------------------------------"
+    """
+    print("-----------------------------------------------")
+    print(my_message)
+    print("-----------------------------------------------")
 
 subtotal = 0
 prod_list = []
 product_selection = []
+shop_name = "The Natural Grocer"
+
+format("Hello and welcome to The Natural Grocer's Input System")
 
 while True: 
     prod_id = input("Please input a product identifier, or 'DONE' if there are no more items: ")
@@ -60,88 +86,34 @@ while True:
     except IndexError:
         print("The item you entered doesn't exist, please try again")
 
-today = datetime.now()
-
-print("------------------------------------------")
-print("The Natural Grocer")
-print("------------------------------------------")
-print("Web: thenaturalgrocer.com")
-print("Phone: +1 240 360 4848")
-
-
-print("Checkout Time:", today.year, "/", today.month, "/", today.day, "  ", today.hour, ":", today.minute)
-print("------------------------------------------")
-print("Shopping Cart Items:")
-
+receipt = ""
+receipt+= f"{format(shop_name)}"
+receipt+= "\nWeb: thenaturalgrocer.com"
+receipt+= "\nPhone: +1 240 360 4848"
+receipt+= "\nCheckout Time:" + checkout
+receipt+="\n------------------------------------------"
+receipt+= "\nShopping Cart Items:"
+receipt+="\n------------------------------------------"
 
 for product in product_selection:
-    print("+ ", product["name"], to_usd(product["price"]))
+    receipt += "\n+ " + str(product["name"]) + " " + str(to_usd(product["price"]))
     price = product["price"]
     subtotal = price + subtotal
-print("------------------------------------------")
+    
+receipt+= "\n------------------------------------------"
 
-print("Subtotal: ", to_usd(subtotal))
+receipt+= f"\nSubtotal: {to_usd(subtotal)}"
 tax_rate = float(tax_rate)
 tax = tax_rate * subtotal
-print("Plus D.C. Sales Tax (", tax_rate,"):", to_usd(tax))
+receipt+= f"\nPlus D.C. Sales Tax ({tax_rate*100}%): {to_usd(tax)}"
 total = subtotal + tax 
-print("Total: ", to_usd(total)) 
-print("------------------------------------------")
-print("Thank you for shopping, please come again!")
+receipt+= f"\nTotal: {to_usd(total)}"
+receipt+="\n------------------------------------------"
+receipt+="\nThank you for shopping, please come again!"
 
+print(receipt)
 
-file_name = "receipts/" + str(today.year) + "-" + str(today.month) + "-" + str(today.day) + "-" + str(today.hour) + "-" + str(today.minute) + "-" + str(today.second) + "-" + str(today.microsecond) + ".txt"
-with open(file_name, 'w') as file:
-    file.write("------------------------------------------")
-    file.write("\n")
-    file.write("The Natural Grocer")
-    file.write("\n")
-    file.write("------------------------------------------")
-    file.write("\n")
-    file.write("Web: thenaturalgrocer.com")
-    file.write("\n")
-    file.write("Phone: +1 240 360 4848")
-    file.write("\n")
-    file.write("------------------------------------------")
-    file.write("\n")
-    file.write("Checkout Time: ")
-    file.write(str(today.year))
-    file.write("/")
-    file.write(str(today.month))
-    file.write("/")
-    file.write(str(today.day))
-    file.write("  ")
-    file.write(str(today.hour))
-    file.write(":")
-    file.write(str(today.minute))
-    file.write(":")
-    file.write(str(today.second))
-    file.write("\n")
-    file.write("Shopping Cart Items:")
-    file.write("\n")
-    file.write("------------------------------------------")
-    file.write("\n")
-    for product in product_selection:
-        file.write("+ ")
-        file.write(product["name"])
-        file.write("  ")
-        file.write(to_usd(product["price"]))
-        file.write("\n")
-    file.write("------------------------------------------")
-    file.write("\n")
-    file.write("Subtotal: ")
-    file.write(to_usd(subtotal))
-    file.write("\n")
-    file.write("Plus D.C. Sales Tax (")
-    file.write(str((tax_rate)))
-    file.write("): ")
-    file.write(to_usd(tax))
-    file.write("\n")
-    file.write("Total: ")
-    file.write(to_usd(total)) 
-    file.write("\n")
-    file.write("------------------------------------------")
-    file.write("\n")
-    file.write("Thank you for shopping, please come again!")
-    file.write("\n")
-    file.write("------------------------------------------")
+#writing receipts to file 
+file_name = os.path.join(os.path.dirname(__file__), "receipts", f"{datetime.now().strftime('%Y-%M-%d-%H-%m-%S')}.txt")
+with open(file_name, 'w') as f:
+    f.write(receipt)
