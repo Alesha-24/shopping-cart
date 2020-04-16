@@ -32,3 +32,12 @@ You can use the ".env" to configure the sales tax rate based on your location. T
 
 ## Writing Receipts to File 
 In addition to being displayd at the end of the checkout proccess, the program also writes out the receipt sinformation into a new ".txt" file which can be found in the "receipts" directory inside the project repository. Each text file is  named according to the date and time the checkout process started. 
+
+## Testing 
+In order for the test to run it is important to install the pytest package in the virtual environment as shown below: 
+ ```sh 
+ pip install pytest # (first time only)
+
+ pytest # to run the tests 
+
+ ```
