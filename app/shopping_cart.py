@@ -10,11 +10,15 @@ from datetime import datetime
 load_dotenv() 
 tax_rate = os.getenv("tax_rate")
 
-# def timestap():
-#     """
-#     Formats the receipt timestap in a human friendly format
-#     """
-#     checkout = datetime.now().strftime("%m/%d/%Y, %r")
+def subtotal_calc(selected_products):
+    """
+    This function calculates the subtotal of the prices of a given list of products 
+    """
+    subtotal = 0
+    for product in selected_products:
+        price = product["price"]
+        subtotal = price + subtotal
+    return subtotal 
 
 def tax_amount_calc(tax_rate, subtotal):
     """
@@ -49,6 +53,14 @@ def to_usd(my_price):
     """
     return f"${my_price:,.2f}" 
 
+def find_product(product_id, all_products):
+    """
+    This function uses a unique product identifier to look up a product in a given list of products
+    """
+    matching_products = [p for p in all_products if str(p["id"]) == str(product_id)]
+    matching_product = matching_products[0]
+    return matching_product
+
 if __name__ == "__main__":
     
     products = [
@@ -76,8 +88,7 @@ if __name__ == "__main__":
 
     
     checkout = datetime.now().strftime("%m/%d/%Y, %r")
-
-    subtotal = 0
+    
     prod_list = []
     product_selection = []
     shop_name = "The Natural Grocer"
@@ -90,31 +101,28 @@ if __name__ == "__main__":
             print("SHOPPING CART ITEM IDENTIFIERS INCLUDE:", prod_list)
             break      
         else:
-            prod_id = int(prod_id)
-            matching_products = [p for p in products if p["id"] == prod_id]
+            matching_product = find_product(prod_id, products) 
             prod_list.append(prod_id)
         try:
-            matching_product = matching_products[0]
+            #matching_product = matching_products[0]
             print("+ ", matching_product["name"], to_usd(matching_product["price"]))
             product_selection.append(matching_product)
         except IndexError:
             print("The item you entered doesn't exist, please try again")
-
+    
     receipt = ""
-    receipt+="\n------------------------------------------"
+    receipt+= "\n------------------------------------------"
     receipt+= "\nThe Natural Grocer"
-    receipt+="\n------------------------------------------"
+    receipt+= "\n------------------------------------------"
     receipt+= "\nWeb: thenaturalgrocer.com"
     receipt+= "\nPhone: +1 240 360 4848"
     receipt+= "\nCheckout Time:" + checkout
-    receipt+="\n------------------------------------------"
+    receipt+= "\n------------------------------------------"
     receipt+= "\nShopping Cart Items:"
-
-
+    
+    subtotal = subtotal_calc(product_selection)
     for product in product_selection:
         receipt += "\n+ " + str(product["name"]) + " " + str(to_usd(product["price"]))
-        price = product["price"]
-        subtotal = price + subtotal
         
     receipt+= "\n------------------------------------------"
 

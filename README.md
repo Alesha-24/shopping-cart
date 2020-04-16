@@ -21,7 +21,7 @@ conda activate shopping-env
 From within this virtual environment, you can run the Python script from the command-line:
 
 ```sh
-python shopping_cart.py
+python app/shopping_cart.py
 ```
 
 ## Using the Code
