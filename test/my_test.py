@@ -40,7 +40,7 @@ def test_subtotal_calc():
 
 def test_total_calculation():
     # checks that the total is correctly cacluating the sum of the tax amount and subtotal
-    assert total_calculation(4, 12) == 16
+    assert total_calculation(2, 12) == 14
     
 def test_tax_amount_calc():
     # checks that the tax amount is calculated as the tax rate multiplied by the subtotal 
